@@ -46,7 +46,7 @@ button {
     font-size: 16px;
 }
 
-/* MAIN BANNER */
+/* MAIN EXPERIENCE */
 .banner {
     position: fixed;
     width: 100%;
@@ -59,6 +59,7 @@ button {
     overflow: hidden;
 }
 
+/* SLIDES */
 .slide {
     position: absolute;
     max-width: 80%;
@@ -67,34 +68,44 @@ button {
     opacity: 0;
     transition: opacity 1.5s ease-in-out, transform 6s ease-in-out;
     transform: scale(1);
+    z-index: 3;
 }
 
 .slide.active {
     opacity: 1;
-    transform: scale(1.1); /* slow zoom */
+    transform: scale(1.1);
 }
 
+/* TEXT */
 .banner h2 {
     position: absolute;
-    bottom: 100px;
+    bottom: 110px;
     font-size: 3rem;
     color: #ff4e8b;
     text-shadow: 0 0 20px #ff4e8b;
-    z-index: 2;
+    z-index: 4;
 }
 
+/* FIREWORKS */
 canvas {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 
-/* Proposal Section */
+/* FLOWER FALL */
+@keyframes fall {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* PROPOSAL */
 #proposal {
     position: absolute;
     bottom: 30px;
     display: none;
-    z-index: 3;
+    z-index: 5;
 }
 
 #proposal button {
@@ -124,14 +135,11 @@ canvas {
 <!-- EXPERIENCE -->
 <div class="banner" id="banner">
 
-    <!-- 5 Bhanu Photos -->
     <img src="bhanu1.jpg" class="slide active">
     <img src="bhanu2.jpg" class="slide">
     <img src="bhanu3.jpg" class="slide">
     <img src="bhanu4.jpg" class="slide">
     <img src="bhanu5.jpg" class="slide">
-
-    <!-- Grand Finale Couple Photo -->
     <img src="couple.jpg" class="slide">
 
     <canvas id="fireworks"></canvas>
@@ -140,17 +148,18 @@ canvas {
 
     <div id="proposal">
         <h3>Will You Always Be Mine? 💍</h3>
-        <button id="yesBtn" onclick="alert('Forever starts now ❤️')">YES ❤️</button>
+        <button id="yesBtn" onclick="celebrate()">YES ❤️</button>
         <button id="noBtn" onmouseover="moveButton()">NO 😜</button>
     </div>
 
+    <!-- AUDIO UPDATED -->
     <audio id="bgMusic" src="music.mp3.mp4"></audio>
-
 
 </div>
 
 <script>
 
+/* PASSWORD UPDATED */
 const correctPassword = "iloveyou";
 
 function checkPassword() {
@@ -168,9 +177,10 @@ function startExperience() {
     document.getElementById("bgMusic").play();
     startSlideshow();
     startFireworks();
-    createHearts();
+    createFlowers();
 }
 
+/* SLIDESHOW */
 let slideIndex = 0;
 function startSlideshow() {
     const slides = document.querySelectorAll(".slide");
@@ -181,7 +191,7 @@ function startSlideshow() {
         slideIndex++;
 
         if(slideIndex >= slides.length) {
-            slideIndex = slides.length - 1; // stay on couple photo
+            slideIndex = slides.length - 1;
             document.getElementById("proposal").style.display = "block";
         }
 
@@ -190,6 +200,7 @@ function startSlideshow() {
     }, 4000);
 }
 
+/* RUNNING NO BUTTON */
 function moveButton() {
     const btn = document.getElementById("noBtn");
     btn.style.position = "absolute";
@@ -197,20 +208,25 @@ function moveButton() {
     btn.style.top = Math.random() * 80 + "%";
 }
 
-/* HEART PARTICLES */
-function createHearts() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.innerHTML = "❤️";
-        heart.style.position = "fixed";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "-10px";
-        heart.style.fontSize = "20px";
-        heart.style.animation = "fall 5s linear";
-        document.body.appendChild(heart);
+function celebrate() {
+    alert("Forever starts now ❤️✨");
+}
 
-        setTimeout(() => heart.remove(), 5000);
-    }, 300);
+/* FLOWERS */
+function createFlowers() {
+    setInterval(() => {
+        const flower = document.createElement("div");
+        flower.innerHTML = "🌸";
+        flower.style.position = "fixed";
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.top = "-20px";
+        flower.style.fontSize = Math.random() * 10 + 20 + "px";
+        flower.style.animation = "fall 6s linear";
+        flower.style.zIndex = "2";
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 6000);
+    }, 400);
 }
 
 /* FIREWORKS */
@@ -263,4 +279,3 @@ function startFireworks() {
 
 </body>
 </html>
-
